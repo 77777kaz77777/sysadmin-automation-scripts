@@ -17,7 +17,7 @@ sysadmin-automation-scripts/
 │   ├── user2.sh                                # Helper script for linux user creation
 │   └── windows user creation                   # Windows user setup script
 └── 📁 proxmox/
-    ├── multitemplate.yml                       # Ansible playbook for templates
+    ├── clone_and_start_vms.yml                 # Ansible playbook to clone and start Proxmox VMs idempotently
     ├── multitemplates.yml                      # Multi-template configuration
     ├── multitemplatewithtags.yml               # Ansible playbook with tags
     ├── vmdeployment.py                         # Python deployment utility
