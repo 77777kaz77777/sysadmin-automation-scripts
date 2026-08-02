@@ -1,5 +1,5 @@
 #!/bin/bash
- # Helper script for linux user creation
+# Safely creates a user account, configures passwords, and optionally grants administrative privileges.
 # Function to create a new user
 create_user() {
   local USERNAME=$1
