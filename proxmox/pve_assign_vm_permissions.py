@@ -1,4 +1,7 @@
-# Python deployment utility
+"""
+Proxmox VE ACL Assignment Utility
+Assigns Proxmox permissions to users based on a CSV mapping via SSH.
+"""
 import csv
 import subprocess
 import os
