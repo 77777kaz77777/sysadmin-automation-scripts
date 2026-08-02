@@ -1,5 +1,5 @@
 #!/bin/bash
-# Helper script for linux user creation using CSV
+# Reads a CSV file (username,password) and provisions user accounts safely.
 # Function to create a new user
 create_user() {
   local USERNAME=$1
