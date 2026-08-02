@@ -1,5 +1,5 @@
 #!/bin/bash
- # Alternative helper script
+ # Helper script for linux user creation
 # Function to create a new user
 create_user() {
   local USERNAME=$1
