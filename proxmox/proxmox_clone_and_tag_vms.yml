@@ -1,5 +1,4 @@
-# Ansible playbook with tags
-
+# Ansible playbook to safely clone, tag, and start Proxmox VMs
 ---
 - name: Clone multiple VMs/Templates via qm on Proxmox with tags (skipping missing)
   hosts: localhost
