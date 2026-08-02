@@ -1,4 +1,4 @@
-# Inventory/playbook for VM 
+ # Ansible playbook to safely decommission and purge Proxmox VMs
 
 ---
 - name: Stop and delete multiple VMs on Proxmox
