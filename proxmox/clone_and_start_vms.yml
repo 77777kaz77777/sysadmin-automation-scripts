@@ -1,4 +1,4 @@
-# Ansible playbook for templates
+# Ansible playbook to clone and start Proxmox VMs idempotently
 ---
 - name: Clone multiple VMs/Templates via qm on Proxmox
   hosts: localhost
