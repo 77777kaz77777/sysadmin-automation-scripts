@@ -1,5 +1,5 @@
 #!/bin/bash
-# Linux user onboarding script
+# First-Boot Linux User Onboarding Utility
 # Function to create a new user
 create_user() {
   local USERNAME=$1
