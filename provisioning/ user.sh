@@ -1,5 +1,5 @@
 #!/bin/bash
-# Helper script for linux user creation
+# Helper script for linux user creation using CSV
 # Function to create a new user
 create_user() {
   local USERNAME=$1
