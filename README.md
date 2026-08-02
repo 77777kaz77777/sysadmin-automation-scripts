@@ -12,7 +12,7 @@ sysadmin-automation-scripts/
 │   └── setup_nat_dhcp.sh                       # Configure NAT router + DHCP server
 ├── 📁 provisioning/
 │   ├── create_users_from_csv.sh                # Reads a CSV file (username,password) and provisions user accounts safely.
-│   ├── linux user creation                     # Linux user onboarding script
+│   ├── initial_user_onboarding.sh              # First-Boot Linux User Onboarding Utility
 │   ├── run win user creation on boot script    # Boot script for Windows setup
 │   ├── user2.sh                                # Helper script for linux user creation
 │   └── windows user creation                   # Windows user setup script
