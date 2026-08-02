@@ -1,6 +1,5 @@
-# Windows user setup script
+# Interactively provisions a local Windows administrative account and decommissions default/temporary profiles safely.
 
-# Function to create a new user
 function Create-User {
     param (
         [string]$Username,
