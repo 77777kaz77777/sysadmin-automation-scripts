@@ -1,3 +1,5 @@
+# Multi-template configuration
+
 ---
 - name: Clone multiple VMs/Templates via qm on Proxmox
   hosts: localhost
