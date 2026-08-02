@@ -18,7 +18,7 @@ sysadmin-automation-scripts/
 │   └── windows user creation                   # Windows user setup script
 └── 📁 proxmox/
     ├── clone_and_start_vms.yml                 # Ansible playbook to clone and start Proxmox VMs idempotently
-    ├── multitemplatewithtags.yml               # Ansible playbook with tags
+    ├── proxmox_clone_and_tag_vms.yml           # Ansible playbook to safely clone, tag, and start Proxmox VMs
     ├── proxmox_multi_vm_template_deploy.yml    # Multi-template configuration
     ├── pve_assign_vm_permissions.py            # Assigns Proxmox permissions to users based on a CSV mapping via SSH.
     ├── vmrecall.py                             # Utility to recall/retrieve VMs
