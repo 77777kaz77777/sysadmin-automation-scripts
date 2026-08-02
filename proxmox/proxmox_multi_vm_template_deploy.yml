@@ -1,4 +1,4 @@
-# Multi-template configuration
+# Ansible playbook to bulk clone and start Proxmox VMs from Multiple Templates
 
 ---
 - name: Clone multiple VMs/Templates via qm on Proxmox
