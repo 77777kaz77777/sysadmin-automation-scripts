@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# setup_nat_dhcp.sh — Configure NAT router + DHCP server
+# Configure NAT router + DHCP server
 # Must be run as root
 
 set -e
