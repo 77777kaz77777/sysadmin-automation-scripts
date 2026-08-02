@@ -1,3 +1,5 @@
+# Inventory/playbook for VM 
+
 ---
 - name: Stop and delete multiple VMs on Proxmox
   hosts: localhost
