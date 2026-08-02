@@ -1,3 +1,5 @@
+# Windows user setup script
+
 # Function to create a new user
 function Create-User {
     param (
