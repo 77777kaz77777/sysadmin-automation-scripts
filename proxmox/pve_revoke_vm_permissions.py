@@ -1,4 +1,4 @@
-# Utility to recall/retrieve VMs
+#  Revokes Proxmox permissions/roles from users based on a CSV mapping via SSH.
 
 import csv
 import subprocess
