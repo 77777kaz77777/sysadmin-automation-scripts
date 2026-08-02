@@ -20,7 +20,7 @@ sysadmin-automation-scripts/
     ├── clone_and_start_vms.yml                 # Ansible playbook to clone and start Proxmox VMs idempotently
     ├── multitemplatewithtags.yml               # Ansible playbook with tags
     ├── proxmox_multi_vm_template_deploy.yml    # Multi-template configuration
-    ├── pve_assign_vm_permissions.py
+    ├── pve_assign_vm_permissions.py            # Assigns Proxmox permissions to users based on a CSV mapping via SSH.
     ├── vmrecall.py                             # Utility to recall/retrieve VMs
     └── vms_to_delete.yml                       # Inventory/playbook for VM
 ```
