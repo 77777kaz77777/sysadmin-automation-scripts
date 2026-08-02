@@ -1,3 +1,5 @@
+# Boot script for Windows setup
+
 # Script to lock down PowerShell
 # Block all other commands
 function Block-All {
@@ -11,4 +13,3 @@ Set-Alias Block Block-All
 & "C:\Users\user\user.ps1"
 
 
-https://drive.google.com/drive/folders/1DlvD0rsEi2MU_YGwhB2eLlESMPhBK4LA?usp=drive_link
