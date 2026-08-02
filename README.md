@@ -5,7 +5,7 @@ A consolidated repository containing my custom scripts, Ansible playbooks, and u
 ---
 
 ## 🌳 Repository Structure
-
+<!-- START_SECTION:tree -->
 ```text
 sysadmin-automation-scripts/
 ├── 📁 proxmox/                    # VM & Template Management
@@ -25,3 +25,4 @@ sysadmin-automation-scripts/
     ├── run_win_user_boot.ps1    # Boot script for Windows setup
     ├── user.sh                   # Helper script for user creation
     └── user2.sh                  # Alternative helper script
+<!-- END_SECTION:tree -->
