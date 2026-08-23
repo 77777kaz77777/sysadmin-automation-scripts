@@ -13,6 +13,7 @@ A consolidated repository containing my custom scripts, Ansible playbooks, and u
 |---|---|
 | `setup_nat_dhcp.sh` | Configure NAT router + DHCP server |
 
+
 ### 📁 provisioning/ (User Provisioning & Bootstrapping)
 
 | File | Description |
@@ -21,6 +22,7 @@ A consolidated repository containing my custom scripts, Ansible playbooks, and u
 | `create_user_interactive.sh` | Safely creates a user account, configures passwords, and optionally grants administrative privileges. |
 | `create_users_from_csv.sh` | Reads a CSV file (username,password) and provisions user accounts safely. |
 | `initial_user_onboarding.sh` | First-Boot Linux User Onboarding Utility |
+
 
 ### 📁 proxmox/ (Proxmox Virtual Environment Scripts)
 
