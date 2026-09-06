@@ -2,8 +2,9 @@
 #Assigns Proxmox permissions to users based on a CSV mapping via SSH.
 
 import csv
-import subprocess
 import os
+import subprocess
+import sys
 
 # === Prompt for input ===
 host_list = input("Enter comma-separated Proxmox IPs/hosts (e.g., 10.0.0.1,10.0.0.2): ").strip()
@@ -14,7 +15,7 @@ role = "student"
 # === Check if CSV exists ===
 if not os.path.isfile(csv_file):
     print(f"❌ CSV file not found: {csv_file}")
-    exit(1)
+    sys.exit(1)
 
 # === Normalize line endings (convert Windows to Unix line endings) ===
 with open(csv_file, 'r', newline='') as f:
@@ -48,7 +49,7 @@ with open(csv_file, newline='') as csvfile:
                     f"{ssh_user}@{host}",
                     f"pveum aclmod /vms/{vmid} -user '{pve_user}' -role '{role}'"
                 ]
-                result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                result = subprocess.run(cmd, capture_output=True, text=True)
                 if result.returncode == 0:
                     print("     ✔ Success")
                 else:
