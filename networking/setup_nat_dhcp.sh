@@ -17,14 +17,15 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 echo "=== NAT + DHCP Setup ==="
+# Replaced generic "ip" defaults with realistic network defaults
 prompt WAN_IF "Enter your WAN interface name" "eth0"
 prompt LAN_IF "Enter your LAN interface name" "eth1"
-prompt LAN_NET "Enter your LAN network address" "ip"
-prompt NETMASK "Enter your LAN netmask" "ip"
-prompt DHCP_START "Enter DHCP range start IP" "ip"
-prompt DHCP_END "Enter DHCP range end IP" "ip"
-prompt GATEWAY "Enter LAN gateway IP" "ip"
-prompt DNS_SERVERS "Enter DNS servers (comma-separated)" "1.1.1.1,8.8.8.8"
+prompt LAN_NET "Enter your LAN network address" "192.168.1.0"
+prompt NETMASK "Enter your LAN netmask" "255.255.255.0"
+prompt DHCP_START "Enter DHCP range start IP" "192.168.1.10"
+prompt DHCP_END "Enter DHCP range end IP" "192.168.1.100"
+prompt GATEWAY "Enter LAN gateway IP" "192.168.1.1"
+prompt DNS_SERVERS "Enter DNS servers (comma-separated)" "1.1.1.1, 8.8.8.8"
 
 echo
 echo "1) Enabling IPv4 forwarding..."
@@ -34,6 +35,10 @@ EOF
 sysctl -p /etc/sysctl.d/99-ip-forward.conf
 
 echo
+echo "Updating package lists..."
+apt-get update -y
+
+echo
 echo "2) Flushing existing iptables rules..."
 iptables -t nat -F
 iptables -F FORWARD
@@ -41,16 +46,17 @@ iptables -F FORWARD
 echo "   Applying NAT rules..."
 iptables -t nat -A POSTROUTING -s ${LAN_NET}/${NETMASK} -o "$WAN_IF" -j MASQUERADE
 iptables -A FORWARD -i "$LAN_IF" -o "$WAN_IF" -j ACCEPT
-iptables -A FORWARD -i "$WAN_IF" -o "$LAN_IF" -m state --state RELATED,ESTABLISHED -j ACCEPT
+# Updated from deprecated '-m state --state' to '-m conntrack --ctstate'
+iptables -A FORWARD -i "$WAN_IF" -o "$LAN_IF" -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
 echo "   Installing iptables-persistent to save rules..."
-apt update
-DEBIAN_FRONTEND=noninteractive apt install -y iptables-persistent
+DEBIAN_FRONTEND=noninteractive apt-get install -y iptables-persistent
 netfilter-persistent save
 
 echo
 echo "3) Installing and configuring ISC DHCP server..."
-apt install -y isc-dhcp-server
+# Added noninteractive flag to prevent package installation prompts from hanging the script
+DEBIAN_FRONTEND=noninteractive apt-get install -y isc-dhcp-server
 
 # Write dhcpd.conf
 cat > /etc/dhcp/dhcpd.conf <<EOF
@@ -67,7 +73,9 @@ EOF
 # Tell DHCP server which interface to listen on
 sed -i 's/^INTERFACESv4=.*/INTERFACESv4="'"${LAN_IF}"'"/' /etc/default/isc-dhcp-server
 
-systemctl enable isc-dhcp-server --now
+# Restart service instead of just enabling it (package installation starts the service with an unconfigured state and fails)
+systemctl restart isc-dhcp-server
+systemctl enable isc-dhcp-server
 
 echo
 echo "=== Done! ==="
