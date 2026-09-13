@@ -34,11 +34,4 @@ A consolidated repository containing my custom scripts, Ansible playbooks, and u
 | `pve_assign_vm_permissions.py` | Assigns Proxmox permissions to users based on a CSV mapping via SSH. |
 | `pve_destroy_vms.yml` | Ansible playbook to safely decommission and purge Proxmox VMs |
 | `pve_revoke_vm_permissions.py` | Revokes Proxmox permissions/roles from users based on a CSV mapping via SSH. |
-
-
-### 📁 super-linter-output/
-
-| File | Description |
-|---|---|
-| `super-linter-summary.md` |  |
 <!-- END_SECTION:tree -->
