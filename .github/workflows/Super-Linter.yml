@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0
 
       - name: Super-linter
-        uses: super-linter/super-linter@v8.3.1
+        uses: super-linter/super-linter@v8
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: true
@@ -27,6 +27,7 @@ jobs:
           VALIDATE_PYTHON_FLAKE8: true
           VALIDATE_ANSIBLE: true
           VALIDATE_YAML: true
+          VALIDATE_YAML_PRETTIER: true
           
           FIX_PYTHON_BLACK: true
           FIX_YAML_PRETTIER: true
