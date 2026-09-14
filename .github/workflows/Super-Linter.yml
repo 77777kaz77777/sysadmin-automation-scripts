@@ -1,42 +1,31 @@
 name: Super-Linter
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
 
 jobs:
-  lint:
+  run-lint:
+    name: Lint
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
+      packages: read
       statuses: write
+
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v7
         with:
+          # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
 
-      - name: Super-linter
+      - name: Lint Code Base
         uses: super-linter/super-linter@v8
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Setting this to true forces the linter to parse every file in the repository,
+          # rather than only the files modified in a specific pull request or commit.
           VALIDATE_ALL_CODEBASE: true
-          
-          VALIDATE_POWERSHELL: true
-          VALIDATE_BASH: true
-          VALIDATE_BASH_EXEC: true
-          VALIDATE_PYTHON_BLACK: true
-          VALIDATE_PYTHON_FLAKE8: true
-          VALIDATE_ANSIBLE: true
-          VALIDATE_YAML: true
-          VALIDATE_YAML_PRETTIER: true
-          
-          FIX_PYTHON_BLACK: true
-          FIX_YAML_PRETTIER: true
-
-      - name: Commit and push linting fixes
-        if: always()
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore: auto-fix formatting issues"
-          commit_user_name: "github-actions[bot]"
-          commit_user_email: "github-actions[bot]@users.noreply.github.com"
-          file_pattern: "."
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
