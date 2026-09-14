@@ -1,5 +1,4 @@
 # Ansible playbook to bulk clone and start Proxmox VMs from Multiple Templates
-
 ---
 - name: Clone multiple VMs/Templates via qm on Proxmox
   hosts: localhost
@@ -11,14 +10,14 @@
     # define all the clones you want to make:
     clones:
       - source_vmid: 102
-        new_vmid:    200
-        name:        web-200
+        new_vmid: 200
+        name: web-200
       - source_vmid: 103
-        new_vmid:    201
-        name:        db-201
+        new_vmid: 201
+        name: db-201
       - source_vmid: 104
-        new_vmid:    202
-        name:        app-202
+        new_vmid: 202
+        name: app-202
 
     # common storage where all clones will go
     storage: NFS

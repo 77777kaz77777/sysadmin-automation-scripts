@@ -1,5 +1,4 @@
- # Ansible playbook to safely decommission and purge Proxmox VMs
-
+# Ansible playbook to safely decommission and purge Proxmox VMs
 ---
 - name: Stop and delete multiple VMs on Proxmox
   hosts: localhost
@@ -32,9 +31,9 @@
     - name: Show summary of what was stopped & destroyed
       ansible.builtin.debug:
         msg:
-          - "Stopped VMIDs: {{ stop_results.results 
-                                 | map(attribute='item') 
-                                 | list }}"
-          - "Destroyed VMIDs: {{ destroy_results.results 
-                                   | map(attribute='item') 
-                                   | list }}"
+          - "Stopped VMIDs: {{ stop_results.results
+            | map(attribute='item')
+            | list }}"
+          - "Destroyed VMIDs: {{ destroy_results.results
+            | map(attribute='item')
+            | list }}"

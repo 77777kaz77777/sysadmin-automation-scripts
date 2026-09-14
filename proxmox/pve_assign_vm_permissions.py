@@ -1,5 +1,4 @@
-
-#Assigns Proxmox permissions to users based on a CSV mapping via SSH.
+# Assigns Proxmox permissions to users based on a CSV mapping via SSH.
 
 import csv
 import os
@@ -7,7 +6,9 @@ import subprocess
 import sys
 
 # === Prompt for input ===
-host_list = input("Enter comma-separated Proxmox IPs/hosts (e.g., 10.0.0.1,10.0.0.2): ").strip()
+host_list = input(
+    "Enter comma-separated Proxmox IPs/hosts (e.g., 10.0.0.1,10.0.0.2): "
+).strip()
 ssh_user = input("Enter SSH username (default: root): ").strip() or "root"
 csv_file = input("Enter path to CSV file (e.g., users_vms.csv): ").strip()
 role = "student"
@@ -18,9 +19,9 @@ if not os.path.isfile(csv_file):
     sys.exit(1)
 
 # === Normalize line endings (convert Windows to Unix line endings) ===
-with open(csv_file, 'r', newline='') as f:
-    lines = f.read().replace('\r\n', '\n').replace('\r', '\n')
-with open(csv_file, 'w', newline='') as f:
+with open(csv_file, "r", newline="") as f:
+    lines = f.read().replace("\r\n", "\n").replace("\r", "\n")
+with open(csv_file, "w", newline="") as f:
     f.write(lines)
 
 # === Split host list ===
@@ -30,7 +31,7 @@ print(f"🔐 Assigning role: {role}")
 print(f"🌐 Target hosts: {', '.join(proxmox_hosts)}\n")
 
 # === Process CSV ===
-with open(csv_file, newline='') as csvfile:
+with open(csv_file, newline="") as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         if not row or not row[0].strip():
@@ -45,9 +46,11 @@ with open(csv_file, newline='') as csvfile:
             for host in proxmox_hosts:
                 print(f"   🔧 Assigning VM {vmid} on {host} → {pve_user}")
                 cmd = [
-                    "ssh", "-o", "StrictHostKeyChecking=no",
+                    "ssh",
+                    "-o",
+                    "StrictHostKeyChecking=no",
                     f"{ssh_user}@{host}",
-                    f"pveum aclmod /vms/{vmid} -user '{pve_user}' -role '{role}'"
+                    f"pveum aclmod /vms/{vmid} -user '{pve_user}' -role '{role}'",
                 ]
                 result = subprocess.run(cmd, capture_output=True, text=True)
                 if result.returncode == 0:

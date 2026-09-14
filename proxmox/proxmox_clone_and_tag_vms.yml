@@ -9,19 +9,19 @@
   vars:
     clones:
       - source_vmid: 101
-        new_vmid:    310
-        name:        winserver2025
-        tags:        infosomething
+        new_vmid: 310
+        name: winserver2025
+        tags: infosomething
       - source_vmid: 100
-        new_vmid:    311
-        name:        ubuntudesktop
-        tags:        infosomething
-      - source_vmid: 125      # this one doesn’t exist on your node
-        new_vmid:    312
-        name:        Centos9
-        tags:        infosomething
+        new_vmid: 311
+        name: ubuntudesktop
+        tags: infosomething
+      - source_vmid: 125 # this one doesn’t exist on your node
+        new_vmid: 312
+        name: Centos9
+        tags: infosomething
 
-    storage: NFS            # NFS datastore for all clones
+    storage: NFS # NFS datastore for all clones
 
   tasks:
     - name: Check which source VMs/templates actually exist

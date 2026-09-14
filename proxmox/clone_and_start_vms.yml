@@ -10,14 +10,14 @@
     # define all the clones you want to make:
     clones:
       - source_vmid: 105
-        new_vmid:    300
-        name:        web-200
+        new_vmid: 300
+        name: web-200
       - source_vmid: 100
-        new_vmid:    301
-        name:        db-201
+        new_vmid: 301
+        name: db-201
       - source_vmid: 101
-        new_vmid:    302
-        name:        app-202
+        new_vmid: 302
+        name: app-202
 
     # common storage where all clones will go
     storage: NFS
