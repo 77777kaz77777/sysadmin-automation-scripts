@@ -39,4 +39,4 @@ jobs:
           commit_message: "chore: auto-fix formatting issues"
           commit_user_name: "github-actions[bot]"
           commit_user_email: "github-actions[bot]@users.noreply.github.com"
-          file_pattern: "proxmox/*.py proxmox/*.yml provisioning/*.sh networking/*.sh"
+          file_pattern: "."
