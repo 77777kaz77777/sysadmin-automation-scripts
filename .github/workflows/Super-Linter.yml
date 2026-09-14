@@ -48,6 +48,19 @@ jobs:
           go install mvdan.cc/sh/v3/cmd/shfmt@latest
           $(go env GOPATH)/bin/shfmt -w -i 2 .
 
+      - name: Format PowerShell Scripts
+        shell: pwsh
+        run: |
+          Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
+          Get-ChildItem -Recurse -Filter *.ps1 | ForEach-Object {
+              $filePath = $_.FullName
+              $content = Get-Content $filePath -Raw
+              if ($content) {
+                  $formatted = Invoke-Formatter -ScriptDefinition $content
+                  Set-Content -Path $filePath -Value $formatted
+              }
+          }
+
       - name: Commit formatted changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
