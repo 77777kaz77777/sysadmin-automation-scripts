@@ -41,7 +41,7 @@ jobs:
           prettier --write "**/*.{js,ts,json,md,yaml,yml,html,css}"
 
       - name: Set up Go for shfmt
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7
         with:
           go-version: '1.22'
 
