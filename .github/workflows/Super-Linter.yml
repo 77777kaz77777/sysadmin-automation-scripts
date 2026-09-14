@@ -1,45 +1,51 @@
-name: Lint Code Base
+name: Lint and Fix
+
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main", "master" ]
+    branches: [ main ]
+
+permissions:
+  contents: write
 
 jobs:
-  run-lint:
-    name: Lint and Fix
+  format:
+    name: Auto-fix Formatting
     runs-on: ubuntu-latest
-    permissions:
-      # Required to write linting fixes back to the repository
-      contents: write 
-      packages: read
-      statuses: write
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v7
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-      - name: Lint and Fix Code Base
-        uses: super-linter/super-linter@v8
-        env:
-          VALIDATE_ALL_CODEBASE: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-          # Enable automatic fixes for specific linters. 
-          # You must add or remove these based on your repository's specific languages.
-          FIX_YAML_PRETTIER: true
-          FIX_SHELL_SHFMT: true
-          FIX_JAVASCRIPT_PRETTIER: true
-          FIX_PYTHON_BLACK: true
-          FIX_MARKDOWN_PRETTIER: true
+      - name: Install Python Black Formatter
+        run: pip install black
 
-      - name: Commit and Push Fixes
-        # This step takes the files modified by Super-Linter and pushes them to your branch
-        if: always()
+      - name: Run Black
+        run: black .
+
+      - name: Install Node.js and Prettier
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Prettier
+        run: |
+          npm install -g prettier
+          prettier --write "**/*.{js,ts,json,md,yaml,yml,html,css}"
+
+      - name: Run shfmt for Shell Scripts
+        uses: bewuethr/shfmt-action@v1
+        with:
+          path: '.'
+          args: '-w -i 2'
+
+      - name: Commit formatted changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: auto-fix linting issues"
-          commit_user_name: "super-linter-bot"
-          commit_user_email: "super-linter@noreply.github.com"
+          commit_message: "style: automatic code formatting fixes"
+          branch: ${{ github.head_ref || github.ref_name }}
