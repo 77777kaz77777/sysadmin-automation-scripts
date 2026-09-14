@@ -38,11 +38,15 @@ jobs:
           npm install -g prettier
           prettier --write "**/*.{js,ts,json,md,yaml,yml,html,css}"
 
+      - name: Install shfmt
+        run: |
+          SHFMT_VERSION="3.8.5"
+          curl -sSLo /tmp/shfmt https://github.com/mvdan/shfmt/releases/download/v${SHFMT_VERSION}/shfmt_v${SHFMT_VERSION}_linux_amd64
+          chmod +x /tmp/shfmt
+          sudo mv /tmp/shfmt /usr/local/bin/shfmt
+
       - name: Run shfmt for Shell Scripts
-        uses: bewuethr/shfmt-action@v1
-        with:
-          path: '.'
-          args: '-w -i 2'
+        run: shfmt -w -i 2 .
 
       - name: Commit formatted changes
         uses: stefanzweifel/git-auto-commit-action@v5
