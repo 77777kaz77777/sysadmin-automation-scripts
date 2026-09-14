@@ -30,11 +30,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Run Prettier
         run: |
           npm install -g prettier
+          echo ".github/workflows/" >> .prettierignore
           prettier --write "**/*.{js,ts,json,md,yaml,yml,html,css}"
 
       - name: Set up Go for shfmt
