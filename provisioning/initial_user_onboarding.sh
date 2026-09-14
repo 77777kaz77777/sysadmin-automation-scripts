@@ -73,7 +73,7 @@ handle_error() {
   local MESSAGE=$1
   echo "Error: $MESSAGE"
   # Log the error to a file
-  sudo echo "Error: $MESSAGE" >> /var/log/user_creation_error.log
+  sudo echo "Error: $MESSAGE" >>/var/log/user_creation_error.log
   exit 1
 }
 
@@ -105,7 +105,7 @@ if [ "$DEFAULT_USER" != "$USERNAME" ]; then
   sudo usermod -L "$DEFAULT_USER"
 
   # Prevent the new user from enabling the default user again
-  sudo echo "Defaults:$USERNAME !authenticate" >> /etc/sudoers
+  sudo echo "Defaults:$USERNAME !authenticate" >>/etc/sudoers
 fi
 
 # Reboot the system

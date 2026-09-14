@@ -91,4 +91,4 @@ while IFS=, read -r USERNAME PASSWORD; do
   fi
 
   echo "User $USERNAME created successfully."
-done < "$CSV_FILE"
+done <"$CSV_FILE"

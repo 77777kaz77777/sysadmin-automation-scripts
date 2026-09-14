@@ -29,7 +29,7 @@ prompt DNS_SERVERS "Enter DNS servers (comma-separated)" "1.1.1.1, 8.8.8.8"
 
 echo
 echo "1) Enabling IPv4 forwarding..."
-cat > /etc/sysctl.d/99-ip-forward.conf <<EOF
+cat >/etc/sysctl.d/99-ip-forward.conf <<EOF
 net.ipv4.ip_forward = 1
 EOF
 sysctl -p /etc/sysctl.d/99-ip-forward.conf
@@ -59,7 +59,7 @@ echo "3) Installing and configuring ISC DHCP server..."
 DEBIAN_FRONTEND=noninteractive apt-get install -y isc-dhcp-server
 
 # Write dhcpd.conf
-cat > /etc/dhcp/dhcpd.conf <<EOF
+cat >/etc/dhcp/dhcpd.conf <<EOF
 default-lease-time 600;
 max-lease-time 7200;
 

@@ -85,14 +85,3 @@ fi
 
 # Print success message
 echo "User $USERNAME created successfully."
-
-
-
-
-
-
-
-
-
- 
- 
