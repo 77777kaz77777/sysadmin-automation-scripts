@@ -46,7 +46,7 @@ jobs:
           sudo mv /tmp/shfmt /usr/local/bin/shfmt
 
       - name: Run shfmt for Shell Scripts
-        run: shfmt -w -i 2 .
+        run: /usr/local/bin/shfmt -w -i 2 .
 
       - name: Commit formatted changes
         uses: stefanzweifel/git-auto-commit-action@v5
