@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -66,3 +68,5 @@ jobs:
         with:
           commit_message: "style: automatic code formatting fixes"
           branch: ${{ github.head_ref || github.ref_name }}
+          skip_ci: true
+          push_options: '--force-with-lease'
