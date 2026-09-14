@@ -19,7 +19,8 @@ function Create-User {
         # Create the new user
         New-LocalUser -Name $Username -Password (ConvertTo-SecureString -String $PasswordPlain -AsPlainText -Force) -PasswordNeverExpires -UserMayNotChangePassword
         Write-Host "User $Username created successfully."
-    } catch {
+    }
+    catch {
         Write-Host "Failed to create user. Error: $($_.Exception.Message)"
         return $false
     }
@@ -28,7 +29,8 @@ function Create-User {
         # Add the user to the Administrators group
         Add-LocalGroupMember -Group "Administrators" -Member $Username
         Write-Host "User $Username added to Administrators group."
-    } catch {
+    }
+    catch {
         Write-Host "Failed to add user to Administrators group. Error: $($_.Exception.Message)"
         return $false
     }
@@ -46,7 +48,8 @@ function Disable-CurrentUser {
     try {
         Disable-LocalUser -Name $CurrentUsername
         Write-Host "User $CurrentUsername has been disabled."
-    } catch {
+    }
+    catch {
         Write-Host "Failed to disable user. Error: $($_.Exception.Message)"
     }
 }
@@ -61,7 +64,8 @@ function Delete-DefaultUser {
         # Delete the default user
         Remove-LocalUser -Name $DefaultUsername
         Write-Host "Default user $DefaultUsername deleted successfully."
-    } catch {
+    }
+    catch {
         Write-Host "Failed to delete default user. Error: $($_.Exception.Message)"
     }
 
@@ -69,7 +73,8 @@ function Delete-DefaultUser {
         # Remove the default user's home directory
         Remove-Item -Path "C:\Users\$DefaultUsername" -Recurse -Force
         Write-Host "Default user's home directory removed successfully."
-    } catch {
+    }
+    catch {
         Write-Host "Failed to remove default user's home directory. Error: $($_.Exception.Message)"
     }
 }
@@ -138,6 +143,8 @@ Delete-DefaultUser -DefaultUsername $DefaultUsername
 $confirm = Read-Host "Are you sure you want to restart the system? (y/n)"
 if ($confirm -eq "y") {
     Restart-Computer -Force
-} else {
+}
+else {
     Write-Host "Restart canceled."
 }
+
