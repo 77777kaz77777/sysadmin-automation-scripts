@@ -1,3 +1,4 @@
+name: Lint Code Base
 on:
   push:
     branches: [ "main", "master" ]
@@ -36,6 +37,7 @@ jobs:
 
       - name: Commit and Push Fixes
         # This step takes the files modified by Super-Linter and pushes them to your branch
+        if: always()
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: auto-fix linting issues"
