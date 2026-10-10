@@ -12,6 +12,7 @@ concurrency:
 
 jobs:
   update-readme-tables:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     permissions:
       contents: write
