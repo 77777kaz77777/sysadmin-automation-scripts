@@ -44,6 +44,7 @@ jobs:
         uses: actions/setup-go@v7
         with:
           go-version: '1.27.1'
+          cache: false
 
       - name: Install and Run shfmt
         run: |
@@ -66,7 +67,4 @@ jobs:
       - name: Commit formatted changes
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: "style: automatic code formatting fixes"
-          branch: ${{ github.head_ref || github.ref_name }}
-          skip_ci: true
-          push_options: '--force-with-lease'
+          commit_message: "chore: apply automated formatting fixes [skip ci]"
