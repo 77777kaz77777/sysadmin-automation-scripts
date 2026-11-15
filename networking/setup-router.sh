@@ -31,19 +31,19 @@ install_packages() {
   local pkgs=("$@")
   echo "Installing packages (${pkgs[*]}) using $PACKAGER..."
   case "$PACKAGER" in
-    apt)
-      DEBIAN_FRONTEND=noninteractive apt-get update -y
-      DEBIAN_FRONTEND=noninteractive apt-get install -y "${pkgs[@]}"
-      ;;
-    dnf)
-      dnf install -y "${pkgs[@]}"
-      ;;
-    pacman)
-      pacman -Sy --noconfirm "${pkgs[@]}"
-      ;;
-    zypper)
-      zypper --non-interactive install "${pkgs[@]}"
-      ;;
+  apt)
+    DEBIAN_FRONTEND=noninteractive apt-get update -y
+    DEBIAN_FRONTEND=noninteractive apt-get install -y "${pkgs[@]}"
+    ;;
+  dnf)
+    dnf install -y "${pkgs[@]}"
+    ;;
+  pacman)
+    pacman -Sy --noconfirm "${pkgs[@]}"
+    ;;
+  zypper)
+    zypper --non-interactive install "${pkgs[@]}"
+    ;;
   esac
 }
 
@@ -74,7 +74,7 @@ prompt DNS_SERVERS "Enter Upstream DNS servers (comma-separated)" "1.1.1.1,8.8.8
 echo
 echo "1) Enabling IPv4 Forwarding..."
 mkdir -p /etc/sysctl.d
-echo "net.ipv4.ip_forward = 1" > /etc/sysctl.d/99-router-forward.conf
+echo "net.ipv4.ip_forward = 1" >/etc/sysctl.d/99-router-forward.conf
 sysctl -p /etc/sysctl.d/99-router-forward.conf || sysctl --system
 
 echo
@@ -91,7 +91,7 @@ if ! command -v nft >/dev/null; then
 fi
 
 # Create and apply modern nftables rulesets (supports fast masquerade & routing)
-cat <<EOF > /etc/nftables.conf
+cat <<EOF >/etc/nftables.conf
 #!/usr/sbin/nft -f
 
 flush ruleset
@@ -138,7 +138,7 @@ if systemctl is-active --quiet systemd-resolved 2>/dev/null; then
   echo "De-conflicting Systemd-Resolved on port 53..."
   # If local resolver is on, instruct it not to grab Port 53, or rely on Dnsmasq
   mkdir -p /etc/systemd/resolved.conf.d || true
-  cat <<EOF > /etc/systemd/resolved.conf.d/dnsmasq.conf
+  cat <<EOF >/etc/systemd/resolved.conf.d/dnsmasq.conf
 [Resolve]
 DNSStubListener=no
 EOF
@@ -149,7 +149,7 @@ fi
 [ -f /etc/dnsmasq.conf ] && mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
 
 # Setup brand new optimized Dnsmasq Config
-cat <<EOF > /etc/dnsmasq.conf
+cat <<EOF >/etc/dnsmasq.conf
 # Interfaces to listen on
 interface=$LAN_IF
 bind-interfaces
