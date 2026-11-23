@@ -68,4 +68,5 @@ See the top of [`proxmox/setup-secondary-node.sh`](proxmox/setup-secondary-node.
 | <a href="proxmox/pve_assign_vm_permissions.py"><code>pve_assign_vm_permissions.py</code></a> | Assigns Proxmox permissions to users based on a CSV mapping via SSH. |
 | <a href="proxmox/pve_destroy_vms.yml"><code>pve_destroy_vms.yml</code></a> | Ansible playbook to safely decommission and purge Proxmox VMs |
 | <a href="proxmox/pve_revoke_vm_permissions.py"><code>pve_revoke_vm_permissions.py</code></a> | Revokes Proxmox permissions/roles from users based on a CSV mapping via SSH. |
+| <a href="proxmox/setup-secondary-node.sh"><code>setup-secondary-node.sh</code></a> | Bootstraps a fresh Proxmox VE install as a secondary node and joins it to the existing cluster (run straight from GitHub). |
 <!-- END_SECTION:tree -->
