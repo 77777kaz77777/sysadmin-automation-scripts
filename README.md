@@ -4,6 +4,40 @@ A consolidated repository containing my custom scripts, Ansible playbooks, and u
 
 ---
 
+## 🚀 Adding a Secondary Proxmox Node
+
+After installing Proxmox VE on the new machine, log in as `root` (console or SSH) and run:
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/77777kaz77777/sysadmin-automation-scripts/main/proxmox/setup-secondary-node.sh)
+```
+
+The script will:
+
+1. Switch apt to the free `pve-no-subscription` repo, disabling the enterprise one (works for both `.list` and the newer `.sources` format).
+2. Fully update the node and install base tools (git, htop, tmux, nfs-common, chrony, and optionally Ansible).
+3. Set the timezone and, if you choose, hide the "No valid subscription" popup.
+4. Import your SSH keys from `github.com/77777kaz77777.keys`.
+5. Clone this repo to `/opt/sysadmin-automation-scripts` so the playbooks are on the node.
+6. Join the primary node's cluster with `pvecm add` (it will ask for the primary's root password).
+
+Every prompt can be pre-answered with an environment variable, for example:
+
+```bash
+PRIMARY_IP=192.168.1.10 TIMEZONE=America/Toronto \
+  bash <(curl -fsSL https://raw.githubusercontent.com/77777kaz77777/sysadmin-automation-scripts/main/proxmox/setup-secondary-node.sh)
+```
+
+See the top of [`proxmox/setup-secondary-node.sh`](proxmox/setup-secondary-node.sh) for the full list.
+
+**Before you run it:**
+
+- The primary must already be in a cluster. If it isn't yet, run `pvecm create <cluster-name>` on the primary once.
+- Give the new node a **unique hostname** and a **static IP** during the Proxmox install.
+- The new node must have **no VMs or containers** on it yet.
+
+---
+
 ## 🌳 Repository Structure
 
 <!-- START_SECTION:tree -->
