@@ -18,7 +18,6 @@ Every push is formatted automatically and checked with ShellCheck, ansible-lint,
 
 > **Read a script before running it.** Most of these need root or administrator rights and change users, networks, or VMs.
 
-
 ---
 
 ## 🌳 Repository Structure
