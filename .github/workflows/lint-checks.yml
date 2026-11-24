@@ -1,0 +1,89 @@
+name: Lint Checks
+
+# Finds bugs rather than formatting.
+# ShellCheck errors fail the run; Ansible and PowerShell findings are reported
+# in the Security tab (Code scanning) without failing it.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Install ShellCheck
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
+
+      - name: Report all warnings as annotations (does not fail)
+        run: |
+          find . -type f -name "*.sh" -not -path "./.git/*" -exec shellcheck --format=gcc {} + \
+            | sed -E 's/^([^:]+):([0-9]+):([0-9]+): [a-z]+: (.*)$/::warning file=\1,line=\2,col=\3::\4/' || true
+
+      - name: Fail on errors
+        run: find . -type f -name "*.sh" -not -path "./.git/*" -exec shellcheck --severity=error {} +
+
+  ansible-lint:
+    name: ansible-lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.x"
+
+      - name: Run ansible-lint
+        run: |
+          pip install ansible-lint
+          ansible-lint --sarif-file ansible-lint.sarif proxmox/ || true
+
+      - name: Upload results to Code scanning
+        if: always() && hashFiles('ansible-lint.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: ansible-lint.sarif
+          category: ansible-lint
+
+  psscriptanalyzer:
+    name: PSScriptAnalyzer
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Run PSScriptAnalyzer
+        uses: microsoft/psscriptanalyzer-action@v1.1
+        with:
+          path: ./
+          recurse: true
+          output: psscriptanalyzer.sarif
+
+      - name: Upload results to Code scanning
+        if: always() && hashFiles('psscriptanalyzer.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: psscriptanalyzer.sarif
+          category: psscriptanalyzer
