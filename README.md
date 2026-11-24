@@ -1,6 +1,22 @@
-# 🛠️ sysadmin-automation-scripts
+# 🛠️ Sysadmin Automation Scripts
 
-A consolidated repository containing my custom scripts, Ansible playbooks, and utilities for managing Proxmox, network setups, and system provisioning.
+[![Lint checks](https://github.com/77777kaz77777/sysadmin-automation-scripts/actions/workflows/lint-checks.yml/badge.svg)](https://github.com/77777kaz77777/sysadmin-automation-scripts/actions/workflows/lint-checks.yml)
+[![Secret scan](https://github.com/77777kaz77777/sysadmin-automation-scripts/actions/workflows/gitleaks-secret-scan.yml/badge.svg)](https://github.com/77777kaz77777/sysadmin-automation-scripts/actions/workflows/gitleaks-secret-scan.yml)
+[![License: MIT](https://img.shields.io/github/license/77777kaz77777/sysadmin-automation-scripts)](LICENSE)
+
+Scripts and Ansible playbooks for user provisioning, network setup, and managing Proxmox VMs and clusters. Covers Linux (Bash, Python) and Windows (PowerShell).
+
+## What's in Here
+
+| Folder | What's in it |
+| --- | --- |
+| [`proxmox/`](proxmox/) | Ansible playbooks to clone, tag, start, and remove VMs; Python scripts to grant or revoke VM permissions from a CSV; a bootstrap script for new cluster nodes |
+| [`provisioning/`](provisioning/) | Create Linux users interactively or in bulk from a CSV, first-boot onboarding, and a Windows local admin account script |
+| [`networking/`](networking/) | Turn a Linux machine into a NAT router with DHCP and DNS |
+
+Every push is formatted automatically and checked with ShellCheck, ansible-lint, PSScriptAnalyzer, and Gitleaks.
+
+> **Read a script before running it.** Most of these need root or administrator rights and change users, networks, or VMs.
 
 ---
 
