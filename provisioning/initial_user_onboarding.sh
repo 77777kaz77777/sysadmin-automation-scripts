@@ -35,10 +35,9 @@ create_user() {
 
 # Function to update the /etc/skel/.bashrc file
 update_bashrc() {
-  if ! sudo tee -a /etc/skel/.bashrc <<EOF
+  if ! sudo tee -a /etc/skel/.bashrc <<EOF; then
 PS1='\[\e[01;32m\]\u@\h\[\e[00m\]:\[\e[01;34m\]\w\[\e[00m\]\$ '
 EOF
-  then
     echo "Failed to update /etc/skel/.bashrc file."
     return 1
   fi
